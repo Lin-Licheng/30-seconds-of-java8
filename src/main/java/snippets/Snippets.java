@@ -20,6 +20,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Objects;
 import java.util.OptionalInt;
@@ -378,7 +379,7 @@ public abstract class Snippets {
     public static <T, R> Map<T, R> pick(Map<T, R> obj, T[] arr) {
         return Arrays.stream(arr)
                 .filter(obj::containsKey)
-                .collect(Collectors.toMap(k -> k, obj::get));
+                .collect(Collectors.toMap(k -> k, obj::get, (oldValue, newValue) -> oldValue, LinkedHashMap::new));
     }
 
     public static Map<String, Object>[] reducedFilter(Map<String, Object>[] data, String[] keys, Predicate<Map<String, Object>> fn) {
